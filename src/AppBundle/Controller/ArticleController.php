@@ -12,10 +12,18 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\HttpFoundation\Response;
 use Hateoas\Representation\PaginatedRepresentation;
+use Nelmio\ApiDocBundle\Annotation as Doc;
 
 class ArticleController extends FOSRestController
 {
     /**
+     *
+     * @Doc\ApiDoc(
+     *     section="Articles",
+     *     resource=true,
+     *     description="Get the list of all articles."
+     * )
+     *
      * @Rest\Get("/articles", name="app_article_list")
      * @Rest\QueryParam(
      *     name="keyword",
@@ -56,6 +64,20 @@ class ArticleController extends FOSRestController
     }
 
     /**
+     *
+     * @Doc\ApiDoc(
+     *     section="Articles",
+     *     resource=true,
+     *     description="Get one article.",
+     *     requirements={
+     *         {
+     *             "name"="id",
+     *             "dataType"="integer",
+     *             "requirements"="\d+",
+     *             "description"="The article unique identifier."
+     *         }
+     *     }
+     * )
      * @Rest\Get(
      *     path = "/articles/{id}",
      *     name = "app_article_show",
@@ -69,6 +91,16 @@ class ArticleController extends FOSRestController
     }
 
     /**
+     *
+     * @Doc\ApiDoc(
+     *     section="Articles",
+     *     resource=true,
+     *     description="Create an article.",
+     *     statusCodes={
+     *         201="Returned when created",
+     *         400="Returned when a violation is raised by validation"
+     *     }
+     * )
      * @Rest\Post("/articles")
      * @Rest\View(StatusCode = 201)
      * @ParamConverter("article", converter="fos_rest.request_body")
