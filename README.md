@@ -1,4 +1,4 @@
-blog-api-fosrest
+API Rest avec Symfony (API finale)
 ================
 
-API in charge of the management of the articles.
+API Blog 
